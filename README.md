@@ -1,6 +1,6 @@
 # FLAC to AIFF Converter
 
-A simple yet powerful Bash script to convert FLAC music files to AIFF format while preserving album artwork and maintaining maximum audio quality.
+A simple yet powerful set of scripts to convert FLAC music files to AIFF format, preserving album artwork and maintaining maximum audio quality. Supports macOS, Linux, and Windows.
 
 ## Features
 
@@ -8,13 +8,13 @@ A simple yet powerful Bash script to convert FLAC music files to AIFF format whi
 -   **Artwork Preservation**: Retains embedded album artwork during conversion.
 -   **Recursive Search**: Automatically finds and converts all `.flac` files in the current directory and its subdirectories.
 -   **File Management**: Offers options to either overwrite the original files or keep them and save converted files in a separate directory.
--   **Cross-Platform**: Works on any system with a Bash shell and `ffmpeg` (Linux, macOS, etc.).
+-   **Cross-Platform**: Provides a `flactoaiff.sh` for Linux/macOS and a `flactoaiff.bat` for Windows.
 
 ## Prerequisites
 
-Before using this script, you must have `ffmpeg` installed on your system.
+Before using this script, you must have `ffmpeg` installed and accessible in your system's PATH.
 
--   **Website**: [ffmpeg.org](https://ffmpeg.org/)
+-   **Official Website**: [ffmpeg.org](https://ffmpeg.org/)
 
 ### Installation
 
@@ -26,97 +26,67 @@ brew install ffmpeg
 
 #### Linux
 
--   **Debian/Ubuntu**:
-    ```bash
-    sudo apt-get update && sudo apt-get install ffmpeg
-    ```
--   **Fedora**:
-    ```bash
-    sudo dnf install ffmpeg
-    ```
--   **Arch Linux**:
-    ```bash
-    sudo pacman -S ffmpeg
-    ```
+-   **Debian/Ubuntu**: `sudo apt-get update && sudo apt-get install ffmpeg`
+-   **Fedora**: `sudo dnf install ffmpeg`
+-   **Arch Linux**: `sudo pacman -S ffmpeg`
+
+#### Windows
+
+1.  Download the latest "release essentials" build from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip).
+2.  Unzip the file to a permanent location on your computer (e.g., `C:\Program Files\ffmpeg`).
+3.  Add the `bin` subfolder from that location (e.g., `C:\Program Files\ffmpeg\bin`) to the Windows PATH environment variable. ([How-to guide](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/))
+
+---
 
 ## Usage
 
-1.  **Download the Script**:
-    Clone or download the `flactoaiff.sh` script from this repository.
+### For Linux & macOS
 
-2.  **Make it Executable**:
-    Open your terminal, navigate to the script's directory, and run:
+1.  **Make the script executable** (you only need to do this once):
     ```bash
     chmod +x script/flactoaiff.sh
     ```
-
-3.  **Run the Script**:
-    Execute the script from the directory containing your FLAC files.
-
+2.  **Run the script** from the directory containing your FLAC files:
     -   **To convert and replace original files**:
         ```bash
-        ./script/flactoaiff.sh
+        /path/to/script/flactoaiff.sh
         ```
-        This will find all `.flac` files, convert them to `.aiff`, and delete the originals.
-
     -   **To keep original files**:
         ```bash
-        ./script/flactoaiff.sh -k
+        /path/to/script/flactoaiff.sh -k
         ```
-        This will convert all `.flac` files, saving the new `.aiff` versions inside a `flac_to_aiff` subfolder created within the same directory as the original file. The original files will be left untouched.
+        This saves the `.aiff` versions in a `flac_to_aiff` subfolder next to the original file.
 
-### Making the Script Globally Accessible (Optional)
+### For Windows
 
-To run the script from any directory without typing the full path, you can add it to your system's `PATH`. Here are two common methods to do this.
+Run the script from the `cmd` prompt or PowerShell, starting from the directory containing your FLAC files:
 
-#### Method 1: Copy to a System-Wide Directory (Recommended)
-
-This method involves copying the script to a directory that is already in your `PATH`. `/usr/local/bin` is the standard location for user-installed executables on both macOS and Linux.
-
-1.  **Copy the script and rename it**:
-    This command copies the script, renames it to `flactoaiff` for easier typing, and places it in `/usr/local/bin`. You will likely need to enter your password.
-    ```bash
-    sudo cp script/flactoaiff.sh /usr/local/bin/flactoaiff
+-   **To convert and replace original files**:
+    ```powershell
+    path\to\script\flactoaiff.bat
     ```
-
-2.  **Make it executable**:
-    Ensure the copied script has execute permissions.
-    ```bash
-    sudo chmod +x /usr/local/bin/flactoaiff
+-   **To keep original files**:
+    ```powershell
+    path\to\script\flactoaiff.bat -k
     ```
+    This saves the `.aiff` versions in a `flac_to_aiff` subfolder next to the original file. You can use `/k` instead of `-k`.
 
-3.  **Run it from anywhere**:
-    You can now open a new terminal and run the script from any directory.
-    ```bash
-    flactoaiff
-    # or with the keep option
-    flactoaiff -k
-    ```
+---
 
-#### Method 2: Add the Script's Directory to your PATH
+## Making the Script Globally Accessible (Optional)
 
-This method allows you to run the script from its original location. You'll need to add the script's parent directory to your shell's configuration file.
+### For Linux & macOS
 
-1.  **Find the script's absolute path**:
-    Navigate to the `flac_to_aiff` project directory in your terminal and run:
-    ```bash
-    cd script && echo "The path to add is: $(pwd)"
-    ```
-    Copy the output path for the next step.
+Copy the script to `/usr/local/bin` to run it from any directory by just typing `flactoaiff`.
 
-2.  **Edit your shell profile**:
-    -   **For macOS (Zsh)**: Open `~/.zshrc` in a text editor (e.g., `nano ~/.zshrc`).
-    -   **For most Linux distros (Bash)**: Open `~/.bashrc` or `~/.bash_profile`.
+```bash
+sudo cp script/flactoaiff.sh /usr/local/bin/flactoaiff
+sudo chmod +x /usr/local/bin/flactoaiff
+```
 
-3.  **Add the PATH export command**:
-    Add the following line to the end of the file, replacing `"/path/to/your/script/directory"` with the path you copied in step 1.
-    ```bash
-    export PATH="/path/to/your/script/directory:$PATH"
-    ```
+### For Windows
 
-4.  **Apply the changes**:
-    Open a new terminal window or run `source ~/.zshrc` (for Zsh) or `source ~/.bashrc` (for Bash) to update your current session.
-
+The easiest way is to add the `script` folder's full path to your system's PATH environment variable. Once you do this and restart your terminal, you can run `flactoaiff.bat` from any directory.
 
 ## How It Works
 
