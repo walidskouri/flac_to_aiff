@@ -26,7 +26,8 @@ walk_flac() {
       walk_flac "$pathname"
     else
       if [[ "$pathname" == *.flac ]]; then
-        echo "Processing $pathname"
+        PROCESSED_FILES=$((PROCESSED_FILES + 1))
+        echo "Processing file $PROCESSED_FILES/$TOTAL_FILES: $pathname"
         FLAC_FILE_NAME="$pathname"
         AIFF_FILE_NAME="${FLAC_FILE_NAME%.*}.aiff"
 
@@ -53,7 +54,6 @@ walk_flac() {
         else
           echo "Conversion failed with error code: $RC"
         fi
-        echo "Processing $pathname done !"
         echo "----------------------------------------"
       fi
     fi
@@ -62,4 +62,11 @@ walk_flac() {
 
 # --- Main Execution ---
 BASEDIR=${PWD}
+
+echo "Counting total number of FLAC files..."
+TOTAL_FILES=$(find "$BASEDIR" -type f -name "*.flac" | wc -l)
+echo "$TOTAL_FILES FLAC files found."
+echo "----------------------------------------"
+
+PROCESSED_FILES=0
 walk_flac "$BASEDIR"
