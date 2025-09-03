@@ -106,16 +106,30 @@ Run the script from the root directory containing your FLAC files.
 
 ---
 
-## Making the Script Globally Accessible (Optional)
+## Making Scripts Globally Accessible (Optional)
 
 ### For Linux & macOS
 
-Copy the script to `/usr/local/bin` to run it from any directory by just typing `flactoaiff`.
+To run the scripts from any directory without typing the full path, you can create a symbolic link to them in a directory that is in your system's `PATH`, such as `/usr/local/bin`. This method is recommended over copying because any updates to the scripts in this project will be automatically reflected.
 
+**For the shell script:**
 ```bash
-sudo cp script/flactoaiff.sh /usr/local/bin/flactoaiff
-sudo chmod +x /usr/local/bin/flactoaiff
+# Make sure the script is executable first
+chmod +x script/flactoaiff.sh
+
+# Create the symlink (you may be prompted for your password)
+sudo ln -s "$(pwd)/script/flactoaiff.sh" /usr/local/bin/flactoaiff-sh
 ```
+
+**For the Python script:**
+```bash
+# Make sure the script is executable first
+chmod +x script/flactoaiff.py
+
+# Create the symlink
+sudo ln -s "$(pwd)/script/flactoaiff.py" /usr/local/bin/flactoaiff
+```
+After this, you can open a new terminal and run `flactoaiff-sh` or `flactoaiff` from anywhere.
 
 ### For Windows
 
