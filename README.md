@@ -33,8 +33,8 @@ brew install ffmpeg
 #### Windows
 
 1.  Download the latest "release essentials" build from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip).
-2.  Unzip the file to a permanent location on your computer (e.g., `C:\Program Files\ffmpeg`).
-3.  Add the `bin` subfolder from that location (e.g., `C:\Program Files\ffmpeg\bin`) to the Windows PATH environment variable. ([How-to guide](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/))
+2.  Unzip the file to a permanent location on your computer (e.g., `C:\ Program Files\ffmpeg`).
+3.  Add the `bin` subfolder from that location (e.g., `C:\ Program Files\ffmpeg\bin`) to the Windows PATH environment variable. ([How-to guide](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/))
 
 ---
 
@@ -106,6 +106,57 @@ Run the script from the root directory containing your FLAC files.
 
 ---
 
+## Go (Golang) Script Version (`main.go`)
+
+A Go-based version of the converter is also available. It offers the same functionality as the other scripts but with a clean, interactive multi-line progress display.
+
+### Prerequisites
+
+In addition to `ffmpeg`, you will need:
+- Go 1.16+
+
+### Installation of Go
+
+#### macOS (using [Homebrew](https://brew.sh/))
+
+```bash
+brew install go
+```
+
+#### Linux
+
+-   **Debian/Ubuntu**: `sudo apt-get update && sudo apt-get install golang`
+-   **Fedora**: `sudo dnf install golang`
+-   **Arch Linux**: `sudo pacman -S go`
+
+#### Windows
+
+Download and run the installer from the [official Go website](https://golang.org/dl/).
+
+### Setup & Build
+
+1.  **Navigate** to the project directory in your terminal.
+2.  **Download dependencies and build the executable** by running:
+    ```bash
+    go -C script/go build
+    ```
+    This will create an executable file named `flac-to-aiff` inside the `script/go` directory.
+
+### Usage
+
+Run the compiled executable from the root directory containing your FLAC files.
+
+-   **To convert and replace original files**:
+    ```bash
+    ./script/go/flac-to-aiff
+    ```
+-   **To keep original files** (saves AIFF files in a `flac_to_aiff` subfolder):
+    ```bash
+    ./script/go/flac-to-aiff -k
+    ```
+
+---
+
 ## Making Scripts Globally Accessible (Optional)
 
 ### For Linux & macOS
@@ -127,13 +178,20 @@ sudo ln -s "$(pwd)/script/flactoaiff.sh" /usr/local/bin/flactoaiff-sh
 chmod +x script/flactoaiff.py
 
 # Create the symlink
-sudo ln -s "$(pwd)/script/flactoaiff.py" /usr/local/bin/flactoaiff
+sudo ln -s "$(pwd)/script/flactoaiff.py" /usr/local/bin/flactoaiff-py
 ```
-After this, you can open a new terminal and run `flactoaiff-sh` or `flactoaiff` from anywhere.
+
+**For the Go executable:**
+```bash
+# After building the executable with 'go -C script/go build'
+# Create the symlink (you may be prompted for your password)
+sudo ln -s "$(pwd)/script/go/flac-to-aiff" /usr/local/bin/flactoaiff-go
+```
+After this, you can open a new terminal and run `flactoaiff-sh`, `flactoaiff-py`, or `flactoaiff-go` from anywhere.
 
 ### For Windows
 
-The easiest way is to add the `script` folder's full path to your system's PATH environment variable. Once you do this and restart your terminal, you can run `flactoaiff.bat` from any directory.
+The easiest way is to add the `script` folder's full path to your system's PATH environment variable. Once you do this and restart your terminal, you can run `flactoaiff.bat` from any directory. For the Go executable, you would add the `script/go` directory to your PATH.
 
 ## How It Works
 
