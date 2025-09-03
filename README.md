@@ -8,7 +8,7 @@ A simple yet powerful set of scripts to convert FLAC music files to AIFF format,
 -   **Artwork Preservation**: Retains embedded album artwork during conversion.
 -   **Recursive Search**: Automatically finds and converts all `.flac` files in the current directory and its subdirectories.
 -   **File Management**: Offers options to either overwrite the original files or keep them and save converted files in a separate directory.
--   **Cross-Platform**: Provides a `flactoaiff.sh` for Linux/macOS and a `flactoaiff.bat` for Windows.
+-   **Cross-Platform**: Provides multiple script versions for maximum compatibility: a `flactoaiff.sh` for Linux/macOS, a `flactoaiff.bat` for Windows, and cross-platform versions in Python and Go.
 
 ## Prerequisites
 
