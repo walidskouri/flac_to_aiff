@@ -73,6 +73,39 @@ Run the script from the `cmd` prompt or PowerShell, starting from the directory 
 
 ---
 
+## Python Script Version (`flactoaiff.py`)
+
+A Python-based version of the converter is also available. It offers the same functionality as the shell scripts but with a rich, interactive progress bar.
+
+### Prerequisites
+
+In addition to `ffmpeg`, you will need:
+- Python 3.6+
+- The `rich` library for the progress bar.
+
+### Setup
+
+1.  **Navigate** to the project directory in your terminal.
+2.  **Install the required Python library** by running:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Usage
+
+Run the script from the root directory containing your FLAC files.
+
+-   **To convert and replace original files**:
+    ```bash
+    python3 script/flactoaiff.py
+    ```
+-   **To keep original files** (saves AIFF files in a `flac_to_aiff` subfolder):
+    ```bash
+    python3 script/flactoaiff.py -k
+    ```
+
+---
+
 ## Making the Script Globally Accessible (Optional)
 
 ### For Linux & macOS
